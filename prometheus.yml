@@ -1,0 +1,62 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'ufbank-monitor'
+    environment: 'production'
+
+# Alertmanager configuration (opcional)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+# Scrape configurations
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+
+  # UFBank Applications
+  - job_name: 'ufbank-blue'
+    static_configs:
+      - targets: ['ufbank-blue:80']
+        labels:
+          service: 'ufbank'
+          version: 'blue'
+          environment: 'production'
+
+  - job_name: 'ufbank-green'
+    static_configs:
+      - targets: ['ufbank-green:80']
+        labels:
+          service: 'ufbank'
+          version: 'green'
+          environment: 'production'
+
+  # Load Balancer
+  - job_name: 'load-balancer'
+    static_configs:
+      - targets: ['load-balancer:80']
+        labels:
+          service: 'nginx'
+          type: 'loadbalancer'
+
+  # Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+        labels:
+          service: 'redis'
+          type: 'cache'
+
+  # PostgreSQL
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+        labels:
+          service: 'postgresql'
+          type: 'database'
