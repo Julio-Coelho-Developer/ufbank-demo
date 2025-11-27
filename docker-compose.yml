@@ -1,9 +1,5 @@
-version: '3.8'
-
 services:
-  # ============================================
-  # UFBank Application (Blue Environment)
-  # ============================================
+  # UFBank Aplicação 1 3000:80
   ufbank-app-blue:
     build:
       context: ./app
@@ -27,9 +23,8 @@ services:
       start_period: 5s
     restart: unless-stopped
 
-  # ============================================
-  # UFBank Application (Green Environment)
-  # ============================================
+  # UFBank 2 3001:80
+
   ufbank-app-green:
     build:
       context: ./app
@@ -53,9 +48,7 @@ services:
       start_period: 5s
     restart: unless-stopped
 
-  # ============================================
-  # Load Balancer (Nginx)
-  # ============================================
+  #  Balanceamento de carga na porta 8080
   load-balancer:
     image: nginx:alpine
     container_name: ufbank-lb
@@ -77,9 +70,8 @@ services:
       retries: 3
     restart: unless-stopped
 
-  # ============================================
-  # Prometheus (Monitoring)
-  # ============================================
+  # Monitoramento com Prometheus
+
   prometheus:
     image: prom/prometheus:latest
     container_name: ufbank-prometheus
@@ -97,9 +89,7 @@ services:
       - "com.ufbank.service=monitoring"
     restart: unless-stopped
 
-  # ============================================
-  # Grafana (Visualization)
-  # ============================================
+  # Grafana
   grafana:
     image: grafana/grafana:latest
     container_name: ufbank-grafana
@@ -118,9 +108,7 @@ services:
       - prometheus
     restart: unless-stopped
 
-  # ============================================
   # Redis (Cache)
-  # ============================================
   redis:
     image: redis:alpine
     container_name: ufbank-redis
@@ -139,9 +127,7 @@ services:
       retries: 3
     restart: unless-stopped
 
-  # ============================================
   # PostgreSQL (Database)
-  # ============================================
   postgres:
     image: postgres:15-alpine
     container_name: ufbank-postgres
@@ -164,9 +150,7 @@ services:
       retries: 3
     restart: unless-stopped
 
-# ============================================
 # Networks
-# ============================================
 networks:
   ufbank-network:
     driver: bridge
@@ -174,9 +158,7 @@ networks:
       config:
         - subnet: 172.20.0.0/16
 
-# ============================================
 # Volumes
-# ============================================
 volumes:
   prometheus-data:
     driver: local
