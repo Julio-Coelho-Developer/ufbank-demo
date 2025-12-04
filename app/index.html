@@ -1,101 +1,126 @@
 <!DOCTYPE html>
-    <html>
-        <head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFBank - Banking Digital</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="50" height="50" viewBox="0 0 50 50">
+                    <rect x="10" y="10" width="30" height="30" fill="#6366f1" rx="5"/>
+                    <path d="M 20 20 L 30 20 L 25 30 Z" fill="white"/>
+                </svg>
+                <h1>UFBank</h1>
+            </div>
+        </header>
 
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-        
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="style.css">
-
-            
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>	
-
-        
-        </head>
-        <body class="login-body">
-            <div class="container-fluid login-wrapper">
-                <div class="login-box">
-                    <div class="row">
-                        <div class="col-md-12 col-sm-2 col-12 ">
-                            <h3 class="mb-2 text-center">ITConnectJobs</h3>
-                            <br>
-                            
-                            <form action="/autenticar" method="post" class="mt-2">
-                                <!--Começo do input do usuário--> 
-                                <div class="form-group input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <input type="text" name="login" class="form-control" placeholder="Usuário" required>
-                                </div>
-                                <!--Começo do input da senha-->
-                                <div class="form-group input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                    </div>
-                                    <input id="password-field"  name="senha" type="password" class="form-control" placeholder="Senha" required>
-                                </div>
-        
-                                <div class="form-group">
-                                    <button id="Entrar" type="submit" class="form-control btn btn-theme btn-block p-2 mb-1">Entrar</button>
-                                </div>
-                    
-                            </form>
-
-                                <p><small class="text-center">Não tem conta ? Crie agora.</small></p>
-                                
-                                <div class="form-group">
-                                    <button id="cadastrar" action="/cadastrar"  type="submit" class="form-control btn btn-theme-create btn-block p-2 mb-1">Cadastrar-se</button>
-                                </div>
-        
-                        </div>
+        <main>
+            <section class="hero">
+                <h2>Bem-vindo ao UFBank</h2>
+                <p>Banking Digital com Infraestrutura Multi-Cloud</p>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3 id="customers">0</h3>
+                        <p>Clientes Ativos</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="transactions">0</h3>
+                        <p>Transações/dia</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="uptime">99.9%</h3>
+                        <p>Uptime</p>
                     </div>
                 </div>
-            </div>    
-          </body>
+            </section>
 
-          <script>
-			$(document).ready(() => {
+            <section class="architecture">
+                <h2>Arquitetura Multi-Cloud</h2>
+                <div class="cloud-providers">
+                    <div class="provider aws">
+                        <h3>AWS</h3>
+                        <p>Dados Críticos</p>
+                        <div class="status online">● Online</div>
+                    </div>
+                    <div class="provider azure">
+                        <h3>Azure</h3>
+                        <p>Autenticação</p>
+                        <div class="status online">● Online</div>
+                    </div>
+                    <div class="provider gcp">
+                        <h3>GCP</h3>
+                        <p>Big Data & Analytics</p>
+                        <div class="status online">● Online</div>
+                    </div>
+                </div>
+            </section>
 
-				$('Entrar').on('click', (e) => {
-					e.preventDefault() 
+            <section class="demo-section">
+                <h2>Demonstração CI/CD</h2>
+                <div class="pipeline">
+                    <div class="pipeline-step" id="step1">
+                        <h4>1. Code Commit</h4>
+                        <p>GitHub</p>
+                        <div class="step-status">✓</div>
+                    </div>
+                    <div class="pipeline-step" id="step2">
+                        <h4>2. Build</h4>
+                        <p>Docker Build</p>
+                        <div class="step-status">✓</div>
+                    </div>
+                    <div class="pipeline-step" id="step3">
+                        <h4>3. Test</h4>
+                        <p>Automated Tests</p>
+                        <div class="step-status">✓</div>
+                    </div>
+                    <div class="pipeline-step" id="step4">
+                        <h4>4. Deploy</h4>
+                        <p>Production</p>
+                        <div class="step-status">✓</div>
+                    </div>
+                </div>
+                <button id="simulateDeployBtn" class="btn-primary">Simular Deploy</button>
+            </section>
 
-					let dados = $('form').serialize()
-					
-					$.ajax({
-						type: 'post', /*Método*/
-						url: 'autenticar',
-						data: dados, //x-www-form-urlencoded
-						dataType: 'json',
-						success: dados => { 
-                            if(dados){
-                                window.location.href= '/fluxogramas';
-                            }else{
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Usuário inválido.',
-                                    text: 'O login ou senha estão incorretos.',
-                                })
-                            }
-                        
-                        },
-						error: erro => { console.log(erro) }
-					})
-				})
-
-                $('cadastrar').on('click', (e) => {
-                    console.log('Entrei aqui!')
-					window.location.href= '/cadastrar';
-
-					
-				})
-				
-			})
-		</script>
+            <section class="features">
 
 
+                <h2>Tecnologias Implementadas</h2>
+                <div class="tech-grid">  
+                    <div class="tech-card">
+                        <h3>🐳 Docker</h3>
+                        <p>Containerização de aplicações</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>⚙️ Kubernetes</h3>
+                        <p>Orquestração de containers</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>🔄 GitHub Actions</h3>
+                        <p>Pipeline CI/CD automatizado</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>🔒 Segurança</h3>
+                        <p>Criptografia end-to-end</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>📊 Monitoramento</h3>
+                        <p>Observabilidade contínua</p>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-    </html>
+        <footer>
+            <p>&copy; 2024 UFBank - Demonstração Acadêmica | IaC & CI/CD Multi-Cloud</p>
+            <p>Desenvolvido por: Marcos Pimentel, Deivid Garcia Schitine, Júlio César</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
