@@ -1,4 +1,3 @@
-// Animação de contadores
 function animateCounter(id, target, duration = 2000) {
     const element = document.getElementById(id);
     const start = 0;
@@ -16,12 +15,10 @@ function animateCounter(id, target, duration = 2000) {
     }, 16);
 }
 
-// Animar contadores quando a página carregar
 window.addEventListener('load', () => {
     animateCounter('customers', 125430, 2000);
     animateCounter('transactions', 1250000, 2500);
     
-    // Adicionar animação aos cards
     const cards = document.querySelectorAll('.tech-card, .provider, .stat-card');
     cards.forEach((card, index) => {
         setTimeout(() => {
@@ -37,35 +34,28 @@ window.addEventListener('load', () => {
     });
 });
 
-// Simulação de Deploy
 document.getElementById('simulateDeployBtn').addEventListener('click', function() {
     const steps = document.querySelectorAll('.pipeline-step');
     const button = this;
     
-    // Desabilitar botão
     button.disabled = true;
     button.textContent = 'Deploy em Andamento...';
     
-    // Resetar status
     steps.forEach(step => {
         step.classList.remove('active');
         step.querySelector('.step-status').textContent = '○';
         step.querySelector('.step-status').style.color = '#9ca3af';
     });
     
-    // Animar cada step
     steps.forEach((step, index) => {
         setTimeout(() => {
-            // Ativar step atual
             step.classList.add('active');
             
             setTimeout(() => {
-                // Completar step
                 step.classList.remove('active');
                 step.querySelector('.step-status').textContent = '✓';
                 step.querySelector('.step-status').style.color = '#10b981';
                 
-                // Se for o último step
                 if (index === steps.length - 1) {
                     setTimeout(() => {
                         button.disabled = false;
@@ -83,7 +73,6 @@ document.getElementById('simulateDeployBtn').addEventListener('click', function(
     });
 });
 
-// Atualizar status das clouds em tempo real (simulação)
 function updateCloudStatus() {
     const providers = document.querySelectorAll('.provider');
     providers.forEach(provider => {
@@ -104,10 +93,8 @@ function updateCloudStatus() {
     });
 }
 
-// Atualizar status a cada 10 segundos
 setInterval(updateCloudStatus, 10000);
 
-// Smooth scroll para navegação
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -122,7 +109,6 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
-// Adicionar efeito parallax no hero
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     const scrolled = window.pageYOffset;
@@ -130,12 +116,10 @@ window.addEventListener('scroll', () => {
     hero.style.opacity = 1 - scrolled / 500;
 });
 
-// Log de mensagem no console
 console.log('%c🏦 UFBank Multi-Cloud Demo', 'color: #6366f1; font-size: 20px; font-weight: bold;');
 console.log('%cInfraestrutura como Código + CI/CD', 'color: #8b5cf6; font-size: 14px;');
 console.log('%cDesenvolvido para demonstração acadêmica', 'color: #6b7280; font-size: 12px;');
 
-// Adicionar informações de sistema
 const systemInfo = {
     version: '1.0.0',
     environment: 'Production',
