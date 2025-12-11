@@ -127,6 +127,7 @@ services:
       retries: 3
     restart: unless-stopped
 
+
   # PostgreSQL (Database)
   postgres:
     image: postgres:15-alpine
