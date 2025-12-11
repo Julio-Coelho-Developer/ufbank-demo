@@ -1,17 +1,13 @@
 FROM nginx:alpine
 
-# Limpar configuração padrão
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copiar arquivos da aplicação
 COPY index.html /usr/share/nginx/html/
 COPY style.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
 
-# Configurar permissões
 RUN chmod -R 755 /usr/share/nginx/html
 
-# Criar configuração customizada do Nginx
 RUN echo 'server {' > /etc/nginx/conf.d/default.conf && \
     echo '    listen 80;' >> /etc/nginx/conf.d/default.conf && \
     echo '    server_name localhost;' >> /etc/nginx/conf.d/default.conf && \

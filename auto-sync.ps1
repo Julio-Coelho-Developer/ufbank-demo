@@ -1,6 +1,6 @@
 ﻿
 $projectPath = "C:\Users\julio.cesar\Documents\ufbank-demo"
-$checkInterval = 120
+$checkInterval = 60
 
 Write-Host "=== UFBank Auto-Sync Iniciado ===" -ForegroundColor Cyan
 Write-Host "Projeto: $projectPath" -ForegroundColor Yellow
@@ -26,10 +26,8 @@ while ($true) {
         
         Write-Host "[$timestamp] Reconstruindo containers..." -ForegroundColor Yellow
         
-        # MELHORADO: Para e remove tudo primeiro
         docker-compose down -v
         
-        # Mata qualquer processo nas portas (força bruta)
         $ports = @(3000, 3001, 8080, 9090, 3002, 5432, 6379)
         foreach ($port in $ports) {
             $process = Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue
@@ -39,7 +37,6 @@ while ($true) {
             }
         }
         
-        # Aguardar 2 segundos
         Start-Sleep -Seconds 2
         
         # Reconstruir
@@ -48,18 +45,15 @@ while ($true) {
         # Iniciar
         docker-compose up -d
         
-        # Aguardar containers iniciarem
         Write-Host "[$timestamp] Aguardando containers iniciarem..." -ForegroundColor Yellow
         Start-Sleep -Seconds 15
         
-        # Verificar status
         $status = docker-compose ps
         
         Write-Host "[$timestamp] ✓ DEPLOY LOCAL COMPLETO!" -ForegroundColor Green
         Write-Host "[$timestamp] Acesse: http://localhost:8080" -ForegroundColor Cyan
         Write-Host ""
         
-        # Notificação Windows
         try {
             Add-Type -AssemblyName System.Windows.Forms
             $notification = New-Object System.Windows.Forms.NotifyIcon
@@ -69,7 +63,13 @@ while ($true) {
             $notification.Visible = $true
             $notification.ShowBalloonTip(5000)
         } catch {
-            # Ignorar erro de notificação
+            Add-Type -AssemblyName System.Windows.Forms
+            $notification = New-Object System.Windows.Forms.NotifyIcon
+            $notification.Icon = [System.Drawing.SystemIcons]::Information
+            $notification.BalloonTipTitle = "UFBank Erro!"
+            $notification.BalloonTipText = "Ocorreu erro erro no deploy local."
+            $notification.Visible = $true
+            $notification.ShowBalloonTip(5000)
         }
         
     } else {
