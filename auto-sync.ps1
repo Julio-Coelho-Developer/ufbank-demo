@@ -1,6 +1,6 @@
 ﻿
 $projectPath = "C:\Users\julio.cesar\Documents\ufbank-demo"
-$checkInterval = 120
+$checkInterval = 15
 
 Write-Host "=== UFBank Auto-Sync Iniciado ===" -ForegroundColor Cyan
 Write-Host "Projeto: $projectPath" -ForegroundColor Yellow
